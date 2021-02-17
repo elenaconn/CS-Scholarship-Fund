@@ -14,7 +14,7 @@ CREATE TABLE donations (
   _id SERIAL PRIMARY KEY, 
   amount FLOAT not null,
   credit_card INT not null,
-  date DATE,
+  date VARCHAR(80),
   user_id INT not null,
   FOREIGN KEY(user_id) REFERENCES users(_id)
   ON DELETE SET NULL

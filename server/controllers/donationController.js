@@ -24,7 +24,12 @@ donationController.getDonations = (req, res, next) => {
 // userid, credit card, amount
 donationController.makeDonation = (req, res, next) => {
   const { amount, user_id, credit_card } = req.body
-  const addDonation = `INSERT INTO donations (amount, user_id, credit_card) VALUES(${amount}, ${user_id}, ${credit_card})`
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const dateString = `${year}-${month}-${day}`;
+  const addDonation = `INSERT INTO donations (amount, user_id, credit_card, date) VALUES(${amount}, ${user_id}, ${credit_card}, '${dateString}')`
   db.query(addDonation)
     .then((data) => {
      return next();
