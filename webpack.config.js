@@ -9,7 +9,9 @@ module.exports = {
       path: path.resolve(__dirname, 'build'),
       publicPath: '/build'
     },
-
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
     module : {
       rules : [
         {
