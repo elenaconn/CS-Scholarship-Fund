@@ -9,7 +9,7 @@ const donationRouter = express.Router()
 
 const donationController = require('../controllers/donationController.js')
 
-donationRouter.get("/", donationController.getDonations,  (req,res) => {
+donationRouter.get("/total", donationController.getDonations,  (req,res) => {
   res.status(200).json(res.locals.donations);
 })
 
