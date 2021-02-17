@@ -11,11 +11,11 @@ CREATE TABLE users (
 
 -- amount, user id, credit card info, and we will generate date
 CREATE TABLE donations (
-    _id SERIAL PRIMARY KEY, 
-    amount FLOAT not null,
-    credit_card INT not null,
-    date DATE,
-    user_id INT not null,
-    FOREIGN KEY(user_id) REFERENCES users(_id)
-    ON DELETE SET NULL
+  _id SERIAL PRIMARY KEY, 
+  amount FLOAT not null,
+  credit_card INT not null,
+  date DATE,
+  user_id INT not null,
+  FOREIGN KEY(user_id) REFERENCES users(_id)
+  ON DELETE SET NULL
 );

@@ -12,18 +12,40 @@ donationController.getDonations = (req, res, next) => {
   const allDonations = 'SELECT sum(amount) FROM donations';
   db.query(allDonations)
     .then((data) => {
-        res.locals.donations = data.rows[0].sum;
-        console.log('this is res.locals:', res.locals.donations);
-        return next();
+      res.locals.donations = data.rows[0].sum;
+      console.log('this is res.locals:', res.locals.donations);
+      return next();
     })
     .catch((err) => {
-        next(err);
+      return next(err);
     }); 
 };
 
-// TO BE CONTINUED 
+// userid, credit card, amount
 donationController.makeDonation = (req, res, next) => {
-  // destructor request body
+  const { amount, user_id, credit_card } = req.body
+  const addDonation = `INSERT INTO donations (amount, user_id, credit_card) VALUES(${amount}, ${user_id}, ${credit_card})`
+  db.query(addDonation)
+    .then((data) => {
+     return next();
+    })
+    .catch((err) => {
+      return next(err);
+    })
+};
+ 
+
+module.exports = donationController;
+
+
+
+
+
+
+
+
+
+/* // destructor request body
   const { donations, members } = req.body
 
   // test if request would like to add user
@@ -39,6 +61,4 @@ donationController.makeDonation = (req, res, next) => {
   // post donation to DB
   const {nameInput, donationAmount, creditCard, phone, date, email} = donations
   const inputDonation = "INSERT INTO donations (nameInput, donationAmount, creditCard, phone, date, email) VALUES ()"
-}
-
-module.exports = donationController;
+} */
