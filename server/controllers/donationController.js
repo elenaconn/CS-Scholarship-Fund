@@ -17,9 +17,12 @@ donationController.getDonations = (req, res, next) => {
       return next();
     })
     .catch((err) => {
+      // adjust error handlers
       return next(err);
     }); 
 };
+
+// middleware to test if req.body has every value it needs
 
 // userid, credit card, amount
 donationController.makeDonation = (req, res, next) => {
@@ -29,12 +32,14 @@ donationController.makeDonation = (req, res, next) => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const dateString = `${year}-${month}-${day}`;
-  const addDonation = `INSERT INTO donations (amount, user_id, credit_card, date) VALUES(${amount}, ${user_id}, ${credit_card}, '${dateString}')`
+  const addDonation = `INSERT INTO donations (amount, user_id, credit_card, date) VALUES(${amount}, ${user_id}, ${credit_card}, '${dateString}') RETURNING *`
   db.query(addDonation)
     .then((data) => {
-     return next();
+      res.locals.insertedRow = data.rows[0];
+      return next();
     })
     .catch((err) => {
+      // adjust error handlers
       return next(err);
     })
 };
