@@ -13,7 +13,7 @@ donationController.getDonations = (req, res, next) => {
   db.query(allDonations)
     .then((data) => {
         res.locals.donations = data.rows[0].sum;
-        console.log('this is res.locals:',res.locals.donations);
+        console.log('this is res.locals:', res.locals.donations);
         return next();
     })
     .catch((err) => {

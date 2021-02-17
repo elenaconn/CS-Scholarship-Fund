@@ -1,5 +1,5 @@
 {
-  "name": "Codesmith Charity",
+  "name": "CS_Scholarship_Fund",
   "version": "1.0.0",
   "description": "An app to make donating to the Codesmith scholarship fund easy for Codesmith alumni",
   "main": "server/server.js",
@@ -15,6 +15,7 @@
   "dependencies": {
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "pg": "^8.5.1",
     "react": "^17.0.1",
