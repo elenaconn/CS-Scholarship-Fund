@@ -1,13 +1,13 @@
 {
-  "name": "scratch",
+  "name": "Codesmith Charity",
   "version": "1.0.0",
-  "description": "",
+  "description": "An app to make donating to the Codesmith scholarship fund easy for Codesmith alumni",
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production node server/server.js",
-    "dev": "NODE_ENV=development concurrently  \"nodemon server/server.js\" \"webpack-dev-server --open --hot\"",
-    "build": "NODE_ENV=production webpack"
+    "dev": "NODE_ENV=development concurrently  \"nodemon server/server.js\" \"webpack-dev-server --open --hot\""
   },
   "keywords": [],
   "author": "",
