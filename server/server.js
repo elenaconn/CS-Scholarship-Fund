@@ -11,15 +11,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/build', express.static(path.resolve(__dirname , '../build')))
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "../index.html"));
 });
+
+
+const locationRouter = require('./routes/locationRoutes');
+app.use('/location', locationRouter);
 
 /**
  * routers
  */
 const donationRouter = require('./routes/donationRoutes');
 app.use('/donation', donationRouter);
+
 
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 

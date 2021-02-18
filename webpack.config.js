@@ -13,9 +13,15 @@ module.exports = {
       extensions: ['.js', '.jsx'],
 
     },
-    plugins: [new MiniCssExtractPlugin()],
     module : {
       rules : [
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+            },]
+        },
         {
           test : /\.jsx?/,
           exclude: /node_modules/,
@@ -37,7 +43,9 @@ module.exports = {
       
        publicPath: '/build',
        proxy: {
-           '/': 'http://localhost:3000'
+           '/': 'http://localhost:3000',
+           '/location': 'http://localhost:3000'
+
        },
       hot: true,
       // port: 8080,
