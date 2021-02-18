@@ -5,12 +5,12 @@
  */
 
 const express = require('express');
-const donationRouter = express.Router()
+const donationRouter = express.Router();
 
-const donationController = require('../controllers/donationController.js')
+const donationController = require('../controllers/donationController.js');
 
 // handles GET requests to localhost:3000/donation/total
-donationRouter.get("/total",
+donationRouter.get('/total',
   donationController.getDonations, 
   (req,res) => {
     res.status(200).json({
@@ -20,13 +20,13 @@ donationRouter.get("/total",
 })
 
 // handles POST requests to localhost:3000/donation/
-donationRouter.post("/",
+donationRouter.post('/',
   donationController.reqBodyChecker,
   donationController.makeDonation,
   (req, res) => {
     res.status(200).json({
       insertedRow: res.locals.insertedRow,
-      status: 'Success inserting row',
+      status: 'Success inserting donation row',
     })
 })
 
