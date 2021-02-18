@@ -5,7 +5,7 @@
  */
 
 const db = require("../models/databaseModel");
-
+const bcrypt = require('bcrypt');
 const donationController = {};
 
 donationController.getDonations = (req, res, next) => {
@@ -42,24 +42,30 @@ donationController.reqBodyChecker = (req, res, next) => {
       message: {err: 'Error: user_id must be a number value'},
     })
   }
-  if (typeof credit_card !== 'number') {
+  // we ONLY want strings of numbers
+  // we DONT want nonstrings or nonnumber(inner)
+  if (typeof credit_card !== 'string' || isNaN(credit_card) === true) {
     return next({
-      log: 'Error: credit_card must be a number value',
+      log: 'Error: credit_card must be a string of numbers',
       status: 500,
-      message: {err: 'Error: credit_card must be a number value'},
+      message: {err: 'Error: credit_card must be a string of numbers'},
     })
   }
   return next();
 };
 
-donationController.makeDonation = (req, res, next) => {
+donationController.makeDonation = async (req, res, next) => {
   const { amount, user_id, credit_card } = req.body
+
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const dateString = `${year}-${month}-${day}`;
-  const addDonation = `INSERT INTO donations (amount, user_id, credit_card, date) VALUES(${amount}, ${user_id}, ${credit_card}, '${dateString}') RETURNING *`
+
+  let hashedCreditCard = await bcrypt.hash(credit_card, 10);
+
+  const addDonation = `INSERT INTO donations (amount, user_id, credit_card, date) VALUES(${amount}, ${user_id}, '${hashedCreditCard}', '${dateString}') RETURNING *`
   db.query(addDonation)
     .then((data) => {
       res.locals.insertedRow = data.rows[0];
