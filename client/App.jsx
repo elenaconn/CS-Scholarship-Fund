@@ -110,6 +110,11 @@ class App extends Component{
       });
   };
 
+
+  signupUser(){
+    
+  }
+
   // componentDidMount for Total Raised $ fetch request
 
 
@@ -137,7 +142,7 @@ class App extends Component{
                 /> 
                 <Route
                   exact path= "/signup"
-                  render = {props => <Signup {...props} state = {this.state} />}
+                  render = {props => <Signup {...props}  signUp = {this.signUp}  state = {this.state} />}
                 /> 
               </Switch>
             </div>
