@@ -77,13 +77,7 @@ class App extends Component{
       username: this.state.username,
       password: this.state.password
     };
-    
-    // CREATE TABLE users (
-    //   _id SERIAL PRIMARY KEY,
-    //   user_name VARCHAR(80) UNIQUE not null,
-    //   password VARCHAR(80) not null
-
-
+ 
     fetch('/user/login', {
         method: 'POST', // or 'PUT'
         headers: {'Content-Type': 'application/json'},
@@ -124,7 +118,7 @@ class App extends Component{
                   <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
               </div>
               
-              {/* <DemoMap/> */}
+              <DemoMap/>
 
               <Switch>
                 <Route
