@@ -10,9 +10,21 @@ const userController = {};
 userController.create = async (req,res,next) => {
   const {username,password,firstname,lastname,phone_num,email} = req.body;
   // hash password using bcrypt, 10 rounds
-  let hashedPassword = await bcrypt.hash(password,10)
+  let hashedPassword = await bcrypt.hash(password,10);
+
+  let str = 'username,password,firstname,lastname'
+  let valStr = `'${username}','${hashedPassword}','${firstname}','${lastname}'`
+
+  if (phone_num) {
+    str += ', phone_num';
+    valStr += `,'${phone_num}'`;
+  }
+  if (email) {
+    str += ', email';
+    valStr += `,'${email}'`;
+  }
   
-  const createUser = `INSERT INTO users(username,password,firstname,lastname,phone_num,email) VALUES('${username}','${hashedPassword}','${firstname}','${lastname}',${phone_num},'${email}') RETURNING *`
+  const createUser = `INSERT INTO users(${str}) VALUES(${valStr}) RETURNING *`
   db.query(createUser) 
    .then((data) => {
      res.locals.insertedRow = data.rows[0];
