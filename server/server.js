@@ -11,8 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/build', express.static(path.resolve(__dirname , '../build')));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../index.html"));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 /**
