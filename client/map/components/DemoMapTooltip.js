@@ -23,8 +23,8 @@ export  class CityMapTooltip extends Component {
     return city ? (
       <div className="resortCard">
         <p>CS Schorlarship Fund</p>
-        <p><b>#{city.id}: {city.name}</b></p>
-        <p>Donors: {city.donorCount}</p>
+        <p><b>#{city._id}: {city.city}</b></p>
+        <p>Donors: {city.donationscount}</p>
       </div>
     ) : (
       ""

@@ -8,9 +8,7 @@ import {
 import {
   attribution,
   tileUrl,
-  defaultMapState,
   myLocation,
-  cities
 } from './utils/Utils';
 import { DemoMapTooltip, CityMapTooltip } from "./DemoMapTooltip";
 
@@ -18,37 +16,46 @@ import { DemoMapTooltip, CityMapTooltip } from "./DemoMapTooltip";
 export default class DemoMap extends Component {
   constructor() {
     super();
-    this.state = myLocation;
-
+    // this.state = myLocation;
+    this.state = {
+      cities: [],
+    };
   }
   
+  componentDidMount() {
+    fetch('/location')
+      .then(res => res.json())
+      .then(res => {
+        this.setState({cities: res.locations});
+      })
+      .catch(err => console.log('Error fetching locations >>>', err));
+  }
+
   render() {
     const cityMarkers = [];
-    cities.forEach((city, idx) => cityMarkers.push(
+    this.state.cities.forEach((city, idx) => cityMarkers.push(
       <CircleMarker 
-          key={`mountain-${city.id}`}
+          key={`city-${city._id}`}
           color='black'
           radius={15}
-          weight={2}
+          weight={city.donationscount}
           onClick={() => { 
-              this.setState({ activeCity: city });
+            this.setState({...this.state, activeCity: city })
           }}
-          center={city.point}
+          center={[city.lat, city.long]}
           >
     </CircleMarker>
     ));
 
-    return this.props.cities ? (
+    return this.state.cities ? (
       <div >
-      
         <Map
-          center={[this.state.lat, this.state.lng]}
-          zoom={this.state.zoom}
-          style={{ width: "50%", position: "relative"}}
+          center={[myLocation.lat, myLocation.lng]}
+          zoom={myLocation.zoom}
           updateWhenZooming={false}
           updateWhenIdle={true}
           preferCanvas={true}
-          minZoom={this.state.minZoom}
+          minZoom={myLocation.minZoom}
         >
         <TileLayer
             attribution={attribution}
@@ -57,9 +64,9 @@ export default class DemoMap extends Component {
         {cityMarkers}
 
         {this.state.activeCity && <Popup
-          position={this.state.activeCity.point}
+          position={[this.state.activeCity.lat,this.state.activeCity.long] }
           onClose={() => {
-              this.setState({ activeCity: null })
+              this.setState({...this.state, activeCity: null })
           }}
         >
           <CityMapTooltip
