@@ -1,22 +1,16 @@
+-- require username, password, first and last name, optional # and email
 CREATE TABLE users (
   _id SERIAL PRIMARY KEY,
-  user_name VARCHAR(80) UNIQUE not null,
-  password VARCHAR(80) not null
+  username VARCHAR(80) UNIQUE not null,
+  password VARCHAR(80) not null,
+  firstname VARCHAR(80) not null,
+  lastname VARCHAR(80) not null,
+  phone_num INT UNIQUE,
+  email VARCHAR(80) UNIQUE
 );
 
+-- amount, user id, credit card info, and we will generate date
 CREATE TABLE donations (
-<<<<<<< HEAD
-    _id SERIAL PRIMARY KEY, 
-    name  VARCHAR(80) not null,
-    amount FLOAT not null,
-    credit_card INT not null,
-    phone_num INT not null,
-    date DATE not null,
-    email VARCHAR(80) not null,
-    user_id int,
-    FOREIGN KEY(user_id) REFERENCES users(_id)
-    ON DELETE SET NULL
-=======
   _id SERIAL PRIMARY KEY, 
   amount FLOAT not null,
   credit_card VARCHAR(80) not null,
@@ -24,13 +18,4 @@ CREATE TABLE donations (
   user_id INT not null,
   FOREIGN KEY(user_id) REFERENCES users(_id)
   ON DELETE SET NULL
->>>>>>> 4c162420d070e1e74d8bf62a024ebeb342bc44c8
 );
-
-- 'finds total amount of donations'
-SELECT sum(amount)
-FROM "donations" ;
-
-- 'insert values into table'
-INSERT INTO donations(name, amount, credit_card, phone_num, date, email, user_id)
-VALUES ('lucas', '100', '152635241', '36042992', 'dec-12-2019', 'lucas@gitMasterGabi.com', 1)
