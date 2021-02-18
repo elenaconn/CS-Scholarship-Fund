@@ -1,15 +1,18 @@
 /*
  *
+ * userController object holds the methods to make sql queries re: users
  *
- *
-*/
+ */
 const db = require("../models/databaseModel");
-
+const bcrypt = require('bcrypt');
 const userController = {};
 
-userController.create = (req,res,next) => {
+userController.create = async (req,res,next) => {
   const {username,password,firstname,lastname,phone_num,email} = req.body;
-  const createUser = `INSERT INTO users(username,password,firstname,lastname,phone_num,email) VALUES('${username}','${password}','${firstname}','${lastname}',${phone_num},'${email}') RETURNING *`
+  // hash password using bcrypt, 10 rounds
+  let hashedPassword = await bcrypt.hash(password,10)
+  
+  const createUser = `INSERT INTO users(username,password,firstname,lastname,phone_num,email) VALUES('${username}','${hashedPassword}','${firstname}','${lastname}',${phone_num},'${email}') RETURNING *`
   db.query(createUser) 
    .then((data) => {
      res.locals.insertedRow = data.rows[0];
