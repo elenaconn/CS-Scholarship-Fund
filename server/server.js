@@ -46,27 +46,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
 
 module.exports = app;
-const donationRouter = require('./routes/donationRoutes');
-const userRouter = require('./routes/userRoutes');
-
-app.use('/donation', donationRouter);
-
-app.use('/user', userRouter);
-
-app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
-
-// Global error handler
-app.use((err, req, res, next) => {
-  const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
-    status: 500,
-    message: { err: 'An error occurred' },
-  };
-  const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
-  return res.status(errorObj.status).json(errorObj.message);
-});
-
-app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
-
-module.exports = app;

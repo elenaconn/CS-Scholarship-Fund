@@ -33,7 +33,7 @@ class App extends Component{
         amount: 0,
         userId: 0
       };
-    this.onDonate = this.onDonate.bind(this);
+    // this.onDonate = this.onDonate.bind(this);
     }
 
     
