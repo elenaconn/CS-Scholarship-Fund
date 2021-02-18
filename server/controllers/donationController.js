@@ -25,6 +25,33 @@ donationController.getDonations = (req, res, next) => {
     }); 
 };
 
+// check that all 3 values are inputted as well as correct types
+donationController.reqBodyChecker = (req, res, next) => {
+  const { amount, user_id, credit_card } = req.body
+  if (typeof amount !== 'number') {
+    return next({
+      log: 'Error: amount must be a number value',
+      status: 500,
+      message: {err: 'Error: amount must be a number value'},
+    })
+  }
+  if (typeof user_id !== 'number') {
+    return next({
+      log: 'Error: user_id must be a number value',
+      status: 500,
+      message: {err: 'Error: user_id must be a number value'},
+    })
+  }
+  if (typeof credit_card !== 'number') {
+    return next({
+      log: 'Error: credit_card must be a number value',
+      status: 500,
+      message: {err: 'Error: credit_card must be a number value'},
+    })
+  }
+  return next();
+};
+
 donationController.makeDonation = (req, res, next) => {
   const { amount, user_id, credit_card } = req.body
   const date = new Date();
