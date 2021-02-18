@@ -26,7 +26,7 @@ userRouter.post('/login',
   userController.userHistory,
   (req, res) => {
     res.status(200).json({
-      userInfo: res.locals.insertedRow, // send uesrs row + JOIN donations
+      userInfo: res.locals.insertedRow,
       status: 'Success logging in!',
     })
   }
