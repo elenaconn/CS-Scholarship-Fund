@@ -42,9 +42,7 @@ class App extends Component{
   return (
     <Router>
       <div>
-        <DemoMap
-          cities = {cities}
-        />
+        <DemoMap/>
         <Switch>
           <Route
             exact path= "/a"

@@ -12,8 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/build', express.static(path.resolve(__dirname , '../build')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
+
+
+const locationRouter = require('./routes/locationRoutes');
+app.use('/location', locationRouter);
 
 /**
  * route handlers
@@ -23,6 +27,7 @@ const userRouter = require('./routes/userRoutes');
 
 app.use('/donation', donationRouter);
 app.use('/user', userRouter);
+
 
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
