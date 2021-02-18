@@ -13,7 +13,7 @@ userRouter.post('/',
   userController.create,
   (req, res) => {
     res.status(200).json({
-      newUser: res.locals.insertedRow,
+      insertedRow: res.locals.insertedRow,
       status: 'Success creating user row',
     })
   }
