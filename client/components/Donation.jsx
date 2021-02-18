@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import '../styles.css';
 
 
+
+
 class Donation extends Component {
   
     // }
@@ -16,36 +18,30 @@ class Donation extends Component {
         // }
 
       return (
+        <div >
+
+      
+          <h1>Individual Donation: {this.props.state.individualTotal} </h1>
+        
         <div className = "form">
-          {/* <label>Name:</label>
-          <input type="text" id="nameInput"/>*/}
-
-
-          {/*<label>Credit Card:</label>
-            <input type="text" id="creditCard"/>
-          <label>Phone:</label>
-          <input type="text" id="phone"/>
-          <label>Today's Date:</label>
-          <input type="text" id="date" />
-          <label>Email:</label>
-          <input type="text" id="email" /> */}
 
           <label>Donation Amount:</label>
-          <input type="text" id="donationAmount" onChange={this.props.donationFunc}/>
+          <input type="text" id="amount" onChange={this.props.onDonate}/>
           
-
-          <label>Would you like to become a member?</label>
-          <input type="checkbox"/>
+          <label>Credit Card:</label>
+          <input type="text" id="ccNumber" onChange={this.props.onDonate}/>
             
-          <button onClick={this.props.donationFunc}>Submit</button>
+          <button onClick={this.props.postToDB} >Submit</button>
         </div>
+        </div>
+
 
       )
 
     }
 };
 
-export default Donation
+export default Donation;
 
 
     // constructor() {
