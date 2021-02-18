@@ -16,15 +16,15 @@ app.get('/', (req, res) => {
 });
 
 
-const locationRouter = require('./routes/locationRoutes');
-app.use('/location', locationRouter);
 
 /**
  * route handlers
  */
 const donationRouter = require('./routes/donationRoutes');
 const userRouter = require('./routes/userRoutes');
+const locationRouter = require('./routes/locationRoutes');
 
+app.use('/location', locationRouter);
 app.use('/donation', donationRouter);
 app.use('/user', userRouter);
 

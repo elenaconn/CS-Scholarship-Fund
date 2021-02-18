@@ -19,4 +19,18 @@ userRouter.post('/',
   }
 )
 
+// handle POST request to localhost:3000/user/login
+userRouter.post('/login',
+  // some middleware
+  userController.login,
+  userController.userHistory,
+  (req, res) => {
+    res.status(200).json({
+      userInfo: res.locals.userInfo,
+      userHistory: res.locals.userHistory,
+      status: 'Success logging in!',
+    })
+  }
+)
+
 module.exports = userRouter;

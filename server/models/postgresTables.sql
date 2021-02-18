@@ -5,8 +5,9 @@ CREATE TABLE users (
   password VARCHAR(80) not null,
   firstname VARCHAR(80) not null,
   lastname VARCHAR(80) not null,
-  phone_num INT UNIQUE,
-  email VARCHAR(80) UNIQUE
+  phone_num VARCHAR(80) UNIQUE,
+  email VARCHAR(80) UNIQUE,
+  google_id VARCHAR(80)
 );
 
 -- amount, user id, credit card info, and we will generate date
