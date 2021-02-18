@@ -12,7 +12,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
 
 
@@ -23,18 +24,19 @@ class App extends Component{
         credit_card : '', 
         phone_num: '',
         amount: '',
-        user_id: 1,
+        user_id: null,
         user_name: '',
         individualTotal: 0,
         username: '',
         password: ''
       };
-    this.onDonate = this.onDonate.bind(this);
+    this.editState = this.editState.bind(this);
     this.postToDB = this.postToDB.bind(this);
+    this.logInToDB = this.logInToDB.bind(this);
     }
 
   // Changing the value of state to the value of input of donation form
-  onDonate(event){
+  editState(event){
     console.log(event.target);
     this.setState({
       ...this.state,
@@ -43,6 +45,7 @@ class App extends Component{
     // this.setState({...this.state, [event.target.id]: event.target.value})
   };
   // post request to update user info
+
   postToDB(){
     const donationObj = 
     {
@@ -52,24 +55,27 @@ class App extends Component{
     };
     
     fetch('/donation', {
-    method: 'POST', // or 'PUT'
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(donationObj),
+      method: 'POST', // or 'PUT'
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(donationObj),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-    console.error('Error:', error);
-    });
-    this.setState({
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+     })
+      .catch((error) => {
+       console.error('Error:', error);
+      });
+    
+      this.setState({
       ...this.state,
       credit_card : '', 
       amount: '',
       user_id: 1
     })
   };
+
+
   // post request to verify user login
   logInToDB(){
     const userObj = 
@@ -97,7 +103,7 @@ class App extends Component{
         }
       })
       .catch((error) => {
-      console.error('Error:', error);
+      console.error('Error fetching login:', error);
       });
   };
 
@@ -105,12 +111,9 @@ class App extends Component{
 
 
       render() {
-        // if (this.props.state.user !== null) {
-        //   return <Redirect to = '/donation'/>;
-        // }
-        
         return (
           <Router>
+
             <div>
               <div className="main">
                   <h1>Codesmith Alumni Scholarship</h1>
@@ -123,11 +126,11 @@ class App extends Component{
               <Switch>
                 <Route
                   exact path= "/"
-                  render = {props => <Login {...props}  state = {this.state} onDonate = {this.onDonate} logInToDB = {this.logInToDB}/>}
+                  render = {props => <Login {...props}  state = {this.state} editLogin = {this.editState} logInToDB = {this.logInToDB}/>}
                 />
                 <Route
-                  exact path= "/a"
-                  render = {props => <Donation {...props}  onDonate = {this.onDonate} postToDB = {this.postToDB}  state = {this.state} />  }
+                  exact path= "/donation"
+                  render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
                 />  onDonation
               </Switch>
             </div>
