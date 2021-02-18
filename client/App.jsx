@@ -26,6 +26,7 @@ class App extends Component{
         amount: '',
         user_id: null,
         user_name: '',
+        user_donations: [],
         individualTotal: 0,
         username: '',
         password: ''
@@ -37,7 +38,7 @@ class App extends Component{
 
   // Changing the value of state to the value of input of donation form
   editState(event){
-    console.log(event.target);
+    // console.log(event.target);
     this.setState({
       ...this.state,
       [event.target.id]: event.target.value
@@ -91,12 +92,14 @@ class App extends Component{
       })
       .then(response => response.json())
       .then(data => {
-        if (data.status === 'login success'){
+        if (data.status === 'Success logging in!'){
           console.log('Logged in user: ', data.userInfo );
+          const user = data.userInfo;
           this.setState({
             ...this.state,
-            user_name: data.userInfo.user_name,
-            user_id:   data.userInfo._id,
+            user_name: user.username,
+            user_id:   user._id,
+            user_donations: data.userHistory,
             username : '', 
             password: ''
           })        
@@ -131,7 +134,11 @@ class App extends Component{
                 <Route
                   exact path= "/donation"
                   render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
-                />  onDonation
+                /> 
+                <Route
+                  exact path= "/signup"
+                  render = {props => <Signup {...props} state = {this.state} />}
+                /> 
               </Switch>
             </div>
           </Router>

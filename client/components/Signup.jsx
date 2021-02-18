@@ -12,21 +12,21 @@ function Signup(){
 function submitSignup(){
   const data = {username, password, firstname, lastname, email, phone_num}
 
-fetch('/user', {
-  method: 'POST', 
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
-})
-.then(response => response.json())
-.then(res => {
-  console.log('Success:', res);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
-}
+  fetch('/user', {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(res => {
+    console.log('Success:', res);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+  }
 
   return (
     <div className = "form">
@@ -46,10 +46,9 @@ fetch('/user', {
     </div>
   )
   
-}
+};
 
-
-
+export default Signup;
 
 
 

@@ -23,7 +23,7 @@ class Login extends Component {
             
           <button onClick={this.props.logInToDB}>Login</button>
           <button>Sign in with Google</button>
-          <button>Register An Account</button>
+          <button onClick = {() =>  <Redirect to = '/signup'/>}>Register An Account</button>
 
       </div>
     
