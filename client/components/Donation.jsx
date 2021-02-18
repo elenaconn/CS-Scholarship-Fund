@@ -29,10 +29,11 @@ class Donation extends Component {
           <input type="text" id="amount" onChange={this.props.onDonate}/>
           
           <label>Credit Card:</label>
-          <input type="text" id="ccNumber" onChange={this.props.onDonate}/>
+          <input type="text" id="credit_card" onChange={this.props.onDonate}/>
             
-          <button onClick={this.props.postToDB} >Submit</button>
+          <button onClick={this.props.postToDB}>Submit</button>
         </div>
+        
         </div>
 
 

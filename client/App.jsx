@@ -15,9 +15,13 @@ class App extends Component{
       super(props);
       this.state = {
         credit_card : '', 
+        phone_num: '',
         amount: '',
-        user_id: 0,
-        individualTotal: 0
+        user_id: 1,
+        user_name: '',
+        individualTotal: 0,
+        username: '',
+        password: ''
       };
     this.onDonate = this.onDonate.bind(this);
     this.postToDB = this.postToDB.bind(this);
@@ -32,13 +36,12 @@ class App extends Component{
     });
     // this.setState({...this.state, [event.target.id]: event.target.value})
   };
-
+  // post request to update user info
   postToDB(){
-    // post request
     const donationObj = 
     {
       user_id: this.state.user_id,
-      amount: this.state.amount,
+      amount: parseInt(this.state.amount),
       credit_card: this.state.credit_card,
     };
     
@@ -58,10 +61,50 @@ class App extends Component{
       ...this.state,
       credit_card : '', 
       amount: '',
-      user_id: 0
+      user_id: 1
     })
-    
   };
+  // post request to verify user login
+  logInToDB(){
+    const userObj = 
+    {
+      username: this.state.username,
+      password: this.state.password
+    };
+    
+    // CREATE TABLE users (
+    //   _id SERIAL PRIMARY KEY,
+    //   user_name VARCHAR(80) UNIQUE not null,
+    //   password VARCHAR(80) not null
+
+
+    fetch('/user/login', {
+        method: 'POST', // or 'PUT'
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(userObj),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'login success'){
+          console.log('Logged in user: ', data.userInfo );
+          this.setState({
+            ...this.state,
+            user_name: data.userInfo.user_name,
+            user_id:   data.userInfo._id,
+            username : '', 
+            password: ''
+          })        
+        }
+      })
+      .catch((error) => {
+      console.error('Error:', error);
+      });
+
+
+  };
+
+
+  // componentDidMount for Total Raised $ fetch request
 
 
       render() {
@@ -80,11 +123,11 @@ class App extends Component{
               
               <Switch>
                 <Route
-                  exact path= "/a"
-                  render = {props => <Login {...props}  state = {this.state}/>}
+                  exact path= "/"
+                  render = {props => <Login {...props}  state = {this.state} onDonate = {this.onDonate} logInToDB = {this.logInToDB}/>}
                 />
                 <Route
-                  exact path= "/"
+                  exact path= "/a"
                   render = {props => <Donation {...props}  onDonate = {this.onDonate} postToDB = {this.postToDB}  state = {this.state} />  }
                 />  onDonation
               </Switch>
