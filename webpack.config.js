@@ -13,7 +13,6 @@ module.exports = {
       extensions: ['.js', '.jsx'],
 
     },
-    plugins: [new MiniCssExtractPlugin()],
     module : {
       rules : [
         {

@@ -22,16 +22,11 @@
     "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-<<<<<<< HEAD
-    "react-hook-form": "^6.15.1",
-    "react-router-dom": "^5.2.0"
-=======
     "react-leaflet": "^2.8.0",
     "react-leaflet-universal": "^2.1.0",
     "react-native-svg": "^12.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
->>>>>>> main
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -124,7 +124,7 @@ class App extends Component{
                   <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
               </div>
               
-              <DemoMap/>
+              {/* <DemoMap/> */}
 
               <Switch>
                 <Route

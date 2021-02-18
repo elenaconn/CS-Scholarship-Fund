@@ -16,7 +16,7 @@ class Login extends Component {
 
           <label>Username:</label>
           <input type="text" id="username" onChange={this.props.onDonate}/>
-          
+           
           <label>Password:</label>
           <input type="text" id="password" onChange={this.props.onDonate}/>
             
