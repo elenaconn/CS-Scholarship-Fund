@@ -14,10 +14,10 @@ app.use(express.json());
 // parsing request body in urlencoded format
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/build', express.static(path.resolve(__dirname , '../build')))
+app.use('/build', express.static(path.resolve(__dirname , '../build')));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../index.html"));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 <<<<<<< HEAD
@@ -30,11 +30,17 @@ app.post("/makeDonation", donationController.makeDonation, (req, res) => {
 })
 =======
 /**
- * routers
+ * route handlers
  */
 const donationRouter = require('./routes/donationRoutes');
+const userRouter = require('./routes/userRoutes');
+
 app.use('/donation', donationRouter);
+<<<<<<< HEAD
 >>>>>>> ee12d9cbbe867eb2ed392b3e2ba438714f956fea
+=======
+app.use('/user', userRouter);
+>>>>>>> 4c162420d070e1e74d8bf62a024ebeb342bc44c8
 
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 

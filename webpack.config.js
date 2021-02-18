@@ -11,7 +11,9 @@ module.exports = {
     },
     resolve: {
       extensions: ['.js', '.jsx'],
+
     },
+    plugins: [new MiniCssExtractPlugin()],
     module : {
       rules : [
         {
@@ -24,11 +26,11 @@ module.exports = {
             }
           }
         },
+
         {
-          test: /\.css$/,
-          exclude: /node_modules/,
-          use: ['style-loader', 'css-loader'],
-        }
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader', 'sass-loader' ]
+      }
       ]
     },
     devServer: {
@@ -39,6 +41,6 @@ module.exports = {
        },
       hot: true,
       // port: 8080,
-  }
+  },
 };
 

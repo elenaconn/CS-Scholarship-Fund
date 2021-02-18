@@ -5,6 +5,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE donations (
+<<<<<<< HEAD
     _id SERIAL PRIMARY KEY, 
     name  VARCHAR(80) not null,
     amount FLOAT not null,
@@ -15,6 +16,15 @@ CREATE TABLE donations (
     user_id int,
     FOREIGN KEY(user_id) REFERENCES users(_id)
     ON DELETE SET NULL
+=======
+  _id SERIAL PRIMARY KEY, 
+  amount FLOAT not null,
+  credit_card VARCHAR(80) not null,
+  date VARCHAR(80),
+  user_id INT not null,
+  FOREIGN KEY(user_id) REFERENCES users(_id)
+  ON DELETE SET NULL
+>>>>>>> 4c162420d070e1e74d8bf62a024ebeb342bc44c8
 );
 
 - 'finds total amount of donations'
