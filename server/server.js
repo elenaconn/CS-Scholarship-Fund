@@ -3,29 +3,23 @@ const { get } = require('http');
 const path = require('path');
 const PORT = 3000;
 const app = express();
-// const apiRouter = require('./routes');
 
-const dataBaseController = require('./controllers/donationsController.js')
-
+// parsing request body in JSON format
 app.use(express.json());
+// parsing request body in urlencoded format
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/build', express.static(path.resolve(__dirname , '../build')))
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../index.html"));
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
 
-app.get("/getDonations", dataBaseController.getDonations,  (req,res) => {
-  res.status(200).json(res.locals.donations);
-})
-
-app.post("/makeDonation", dataBaseController.makeDonation, (req, res) => {
-  res.sendStatus(200);
-
-})
-
-
+/**
+ * routers
+ */
+const donationRouter = require('./routes/donationRoutes');
+app.use('/donation', donationRouter);
 
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 
@@ -40,8 +34,6 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
-
 
 app.listen(PORT, () => { console.log(`Listening on port ${PORT}...`); });
 

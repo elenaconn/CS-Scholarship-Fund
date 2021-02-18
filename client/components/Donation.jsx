@@ -1,10 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import './stylesheets/styles.css';
+import '../styles.css';
 
 
-class Donations extends Component {
+class Donation extends Component {
     constructor() {
         super();
         this.state = {
@@ -45,74 +45,35 @@ class Donations extends Component {
     render() {
 
         return (
-            <div>
-                <form>
-                    <input type="text" id="nameInput" onChange={(evt) => {
-                      this.setState({
-                        ...this.state,
-                        nameInput: evt.target.value  
-                      });
-                    }}>name</input>
-            
-                    <input type="text" id="donationAmount" onChange={(evt) => {
-                  this.setState({
-                      ...this.state,
-                      donationAmount: evt.target.value
-                      
-                });
-            }}> donation amount </input>
-            
-                    <input type="text" id="creditCard" onChange={(evt) => {
-                  this.setState({
-                     ...this.state,
-                     creditCard: evt.target.value
-                });
-            }}> creditcard </input>
-            
-                    <input type="text" id="phone" onChange={(evt) => {
-                  this.setState({
-                    ...this.state,
-                    phone : evt.target.value
-                });
-            }} > phone number </input>
-                      
-                    <input type="text" id="date" onChange={(evt) => {
-                  this.setState({
-                    ...this.state,
-                    nameInput: evt.target.value
-                });
-            }}> date </input>
-                      
-                    <input type="text" id="email" onChange={(evt) => {
-                  this.setState({
-                    ...this.state,
-                    email: evt.target.value
-                });
-            }}> email </input>
-                      
-                    <input type="checkbox"onChange="">Would you like to become a member?</input>
+            <div className = "form">
+                {/* <form> */}
+                    <label>Name:</label>
+                    <input type="text" id="nameInput"/>
+                    <label>Donation Amount:</label>
+                    <input type="text" id="donationAmount" />
+                    <label>Credit Card:</label>
+                    <input type="text" id="creditCard"/>
+                    <label>Phone:</label>
+                    <input type="text" id="phone"/>
+                    <label>Today's Date:</label>
+                    <input type="text" id="date" />
+                    <label>Email:</label>
+                    <input type="text" id="email" />
 
+                    <label>Would you like to become a member?</label>
+                    <input type="checkbox"/>
 
-                    <input type="text" id="username" onChange={(evt) => {
-                  this.setState({
-                    ...this.state,
-                    username: evt.target.value
-                });
-            }}> username </input>
+                    <input type="text" id="username" />
                       
-                    <input type="text" id="password" onChange={(evt) => {
-                  this.setState({
-                    ...this.state,
-                    password: evt.target.value
-                });
-            }}> password </input>
+                    <input type="text" id="password"/>
                       
                     <button onClick={this.handleClick}>Submit</button>
-                </form>
+                {/* </form> */}
             </div>
 
         )
+
     }
 };
 
-export default Donations
+export default Donation
