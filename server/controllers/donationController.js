@@ -17,14 +17,14 @@ donationController.getDonations = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-      // adjust error handlers
-      return next(err);
+      return next({
+        log: 'Error in getDonations middleware',
+        status: 500,
+        message: {err},
+      });
     }); 
 };
 
-// middleware to test if req.body has every value it needs
-
-// userid, credit card, amount
 donationController.makeDonation = (req, res, next) => {
   const { amount, user_id, credit_card } = req.body
   const date = new Date();
@@ -39,8 +39,11 @@ donationController.makeDonation = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-      // adjust error handlers
-      return next(err);
+      return next({
+        log: 'Error in makeDonation middleware',
+        status: 500,
+        message: {err},
+      });
     })
 };
  
