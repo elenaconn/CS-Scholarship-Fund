@@ -12,7 +12,7 @@ class Login extends Component {
     
     return (
     <div>
-      <h1>Login Component</h1>
+      <h1 id="LoginH1">Login</h1>
       <div className = "form">
 
           <label>Username:</label>
