@@ -21,7 +21,6 @@ class Donation extends Component {
 
               <label><input type="checkbox"/>Would you like to become a member?</label>
               
-
                 
               <button onClick={this.handleClick}>Submit</button>
 
