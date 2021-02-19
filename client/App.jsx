@@ -27,7 +27,6 @@ class App extends Component{
         user_id: null,
         user_name: '',
         user_donations: [],
-        individualTotal: 0,
         username: '',
         password: ''
       };
@@ -61,19 +60,24 @@ class App extends Component{
       body: JSON.stringify(donationObj),
     })
       .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
+      .then(res => {    
+        if (res.status === 'Success inserting donation row') {
+          console.log('Success:', res);
+          this.setState({
+            ...this.state,
+            credit_card : '', 
+            amount: '',
+          })
+        } 
      })
       .catch((error) => {
-       console.error('Error:', error);
+       console.error('Error posting a donation request:', error);
       });
-    
-      this.setState({
-      ...this.state,
-      credit_card : '', 
-      amount: '',
-      user_id: 1
-    })
+
+    // clear the donation amount & creditcard input field
+    document.getElementById('amount').value = '';
+    document.getElementById('credit_card').value = '';
+
   };
 
 
@@ -112,7 +116,7 @@ class App extends Component{
 
 
   signupUser(){
-    
+
   }
 
   // componentDidMount for Total Raised $ fetch request

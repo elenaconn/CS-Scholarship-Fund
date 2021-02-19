@@ -5,28 +5,32 @@ import { Switch, Route } from 'react-router-dom';
 
 
 
-class Donation extends Component {
-      render() {
+const Donation = (props) => {
+        // calculate the individual total
+        console.log('User donations >>> ', props.state.user_donations);
+        const userTotalDonation = props.state.user_donations.reduce((acc, curr) => {
+          return acc + curr.amount;
+        }, 0);
+
         return (
           <div>      
-            <h1>Individual Donation: {this.props.state.individualTotal} </h1>
+            <h1>Individual Donation: ${userTotalDonation} </h1>
           
            <div className = "form">
   
              <label>Donation Amount:</label>
-             <input type="text" id="amount" onChange={this.props.onDonate}/>
+             <input type="text" id="amount" onChange={props.onDonate}/>
             
              <label>Credit Card:</label>
-             <input type="text" id="credit_card" onChange={this.props.onDonate}/>
+             <input type="text" id="credit_card" onChange={props.onDonate}/>
               
-             <button onClick={this.props.postToDB}>Submit</button>
+             <button onClick={props.postToDB}>Submit</button>
           
           </div>
           
           </div>
   
         );
-      }
 };
 
 export default Donation;
