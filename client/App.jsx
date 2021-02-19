@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Login from './components/Login';
 import Donation from './components/Donation';
+import Signup from './components/Signup';
 
 import DemoMap from "./map/components/DemoMap";
-import { cities } from "./map/components/utils/Utils"
 import 'leaflet/dist/leaflet.css';
 import './styles.css';
 
@@ -22,18 +22,21 @@ class App extends Component{
       super(props);
       this.state = {
         credit_card : '', 
-        phone_num: '',
+         phone_num: '',
         amount: '',
         user_id: null,
         user_name: '',
         user_donations: [],
         username: '',
-        password: ''
+        password: '',
+        totalRaised: 0
+      
       };
     this.editState = this.editState.bind(this);
     this.postToDB = this.postToDB.bind(this);
     this.logInToDB = this.logInToDB.bind(this);
     this.openMap = this.openMap.bind(this);
+    this.editUserSignup = this.editUserSignup.bind(this);
     }
 
   // Changing the value of state to the value of input of donation form
@@ -51,6 +54,7 @@ class App extends Component{
     const donationObj = 
     {
       user_id: this.state.user_id,
+      username: this.state.user_name,
       amount: parseInt(this.state.amount),
       credit_card: this.state.credit_card,
     };
@@ -66,6 +70,7 @@ class App extends Component{
           console.log('Success:', res);
           this.setState({
             ...this.state,
+            user_donations: res.userHistory,
             credit_card : '', 
             amount: '',
           })
@@ -125,11 +130,31 @@ class App extends Component{
 
   }
 
+  editUserSignup (user) {
+    this.setState({
+      ...this.state,
+      user_name: user.username,
+      user_id: user._id,
+      });    
+  };
 
-  signupUser(){
-
+  componentDidMount() {
+    fetch('/donation/total', {
+      method: 'GET', 
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'Success getting total donations'){
+        console.log('Collected: ', data.donation );
+        const user = data;
+        this.setState({
+          ...this.state,
+          totalRaised: data.donations
+        })        
+      }
+    })
   }
-
+ 
   // componentDidMount for Total Raised $ fetch request
 
 
@@ -147,31 +172,29 @@ class App extends Component{
                     <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
                   </div>
               </div>
-              <div id="notHeader">
-                <DemoMap/>
+              
+              <DemoMap/>
 
-                <Switch>
-                  <Route
-                    exact path= "/"
-                    render = {props => <Login {...props}  state = {this.state} editLogin = {this.editState} logInToDB = {this.logInToDB}/>}
-                  />
-                  <Route
-                    exact path= "/donation"
-                    render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
-                  /> 
-                  <Route
-                    exact path= "/signup"
-                    render = {props => <Signup {...props}  signUp = {this.signUp}  state = {this.state} />}
-                  /> 
-                </Switch>
-
-              </div>
+              <Switch>
+                <Route
+                  exact path= "/"
+                  render = {props => <Login {...props}  state = {this.state} editLogin = {this.editState} logInToDB = {this.logInToDB}/>}
+                />
+                <Route
+                  exact path= "/donation"
+                  render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
+                /> 
+                <Route
+                  exact path= "/signup"
+                  render = {props => <Signup {...props}  editUserSignup = {this.editUserSignup}  state = {this.state} />}
+                /> 
+              </Switch>
             </div>
           </Router>
           
         )
       };
-    }
+    };
 
 
     
