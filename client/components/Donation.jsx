@@ -14,6 +14,7 @@ const Donation = (props) => {
 
         return (
           <div>      
+
             <h1>Individual Donation: ${userTotalDonation} </h1>
           
            <div className = "form">
