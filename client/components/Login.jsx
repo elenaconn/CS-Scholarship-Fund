@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
-// const bcrypt = require('bcrypt');
-// const saltRounds = 10;
+import '../styles.css';
+import { Link, Redirect } from "react-router-dom";
 
-class Login extends Component{
-  // constructor(props){
-  //   super();
+class Login extends Component {
 
-  // }
 
   render(){
+    if (this.props.state.user_id !== null) {
+      return <Redirect to = '/donation'/>;
+    }
+    
+    return (
+    <div>
+      <h1>Login Component</h1>
+      <div className = "form">
 
-    return (<div><h1>Login Component</h1></div>);
+          <label>Username:</label>
+          <input type="text" id="username" onChange={this.props.editLogin}/>
+           
+          <label>Password:</label>
+          <input type="password" id="password" onChange={this.props.editLogin}/>
+            
+          <button onClick={this.props.logInToDB}>Login</button>
+          <button>Sign in with Google</button>
+          <button onClick = {() =>  <Redirect to = '/signup'/>}>Register An Account</button>
+
+      </div>
+    
+    </div>
+    );
   }
 
 }
 
-
-// bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
-//     // Store hash in your password DB.
-// });
-
-// // Load hash from your password DB.
-// bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
-//     // result == true
-// });
-// bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
-//     // result == false
-// });
 
 export default Login;

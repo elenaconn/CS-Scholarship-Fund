@@ -5,8 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 
 
 class Donation extends Component {
-
-    
+   
     render() {
 
         return (
