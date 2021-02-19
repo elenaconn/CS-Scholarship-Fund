@@ -22,19 +22,24 @@ function Signup(props){
     })
       .then(response => response.json())
       .then(res => {
-      console.log('Success:', res);
+      // of success, expect a user object back and will pass this to props.editUserSignup
+      if (res.status === 'Success creating user row'){
+        console.log('Success:', res.insertedRow);
+        props.editUserSignup(res.insertedRow);
+      }
     })
     .catch((error) => {
-      console.error('Error:', error);
+      console.error('Error creating user: ', error);
     });
     }
 
-    if (this.props.state.user_id !== null) {
+    if (props.state.user_id !== null) {
       return <Redirect to = '/donation'/>;
     }
 
     return (
       <div className = "form">
+      <h1>Sign Up: </h1>
       <label>Username:</label>
       <input type="text" id="username" onChange = {(e) => setUsername(e.target.value)} />
       <label>Password:</label>
@@ -46,7 +51,7 @@ function Signup(props){
       <label>Email:</label>
       <input type="text" id="email" onChange = {(e) => setEmail(e.target.value)}/>
       <label>Phone Number:</label>
-      <input type="text" id="phone_num" onChange = {(e) => setPhone_num(e.target.value)}/>
+      <input type="text" id="phone_num" onChange = {(e) => setPhone_num(e.target.val)}/>
       <button onClick = {submitSignup}>Submit</button>
       </div>
     )
