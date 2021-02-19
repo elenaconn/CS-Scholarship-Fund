@@ -10,24 +10,21 @@ class Login extends Component {
       return <Redirect to = '/donation'/>;
     }
     
-    return (
-    <div>
-      <h1 id="LoginH1">Login</h1>
-      <div className = "form">
+    return (      
+      <div className = "form" id="Login-Form">
 
-          <label>Username:</label>
-          <input type="text" id="username" onChange={this.props.editLogin}/>
-           
-          <label>Password:</label>
-          <input type="password" id="password" onChange={this.props.editLogin}/>
-            
-          <button onClick={this.props.logInToDB}>Login</button>
-          <button>Sign in with Google</button>
-          <button onClick = {() =>  <Redirect to = '/signup'/>}>Register An Account</button>
+        <h2>Login</h2>
+        <label>Username:</label>
+        <input type="text" id="username" onChange={this.props.editLogin}/>
+          
+        <label>Password:</label>
+        <input type="password" id="password" onChange={this.props.editLogin}/>
+          
+        <button onClick={this.props.logInToDB}>Login</button>
+        <button>Sign in with Google</button>
+        <button onClick = {() =>  <Redirect to = '/signup'/>}>Register An Account</button>
 
       </div>
-    
-    </div>
     );
   }
 

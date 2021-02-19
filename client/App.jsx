@@ -33,6 +33,7 @@ class App extends Component{
     this.editState = this.editState.bind(this);
     this.postToDB = this.postToDB.bind(this);
     this.logInToDB = this.logInToDB.bind(this);
+    this.openMap = this.openMap.bind(this);
     }
 
   // Changing the value of state to the value of input of donation form
@@ -114,6 +115,16 @@ class App extends Component{
       });
   };
 
+  openMap() {
+    // if not showing, show
+    if (document.querySelector('#mapContainer').style.display!=='flex') {
+      document.querySelector('#mapContainer').style.display='flex';
+    } else {
+      document.querySelector('#mapContainer').style.display='none';
+    }
+
+  }
+
 
   signupUser(){
 
@@ -128,27 +139,33 @@ class App extends Component{
 
             <div>
               <div className="main">
-                  <h1>Codesmith Alumni Scholarship</h1>
-                  <p>info about scholarship info about scholarship info about scholarship info about scholarship info about scholarship info about scholarship</p>   
-                  <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
+                  <h1>Computer Science Scholarship Fund</h1>
+                  <div id="header">
+                    <button id="mapButton" onClick={this.openMap} type="submit">See donors on the map!</button>
+                    <p id="about">The CS Scholarship Fund wants to make one of the strongest Computer Science programs in the US fully accessible to all. CS scholarships are solely need-based and prioritize underrepresented people in the tech industry such as women, LGBTQ, and minorities. Internal scholarship applications must be submitted 14 days prior to your desired start date.  Please consider donating today!  We thank you for your generous contribution and hope you consider becoming a regular donor.</p>   
+                    
+                    <h3 id="totalHomePage">Total Raised ${this.state.totalRaised}</h3>
+                  </div>
               </div>
-              
-              <DemoMap/>
+              <div id="notHeader">
+                <DemoMap/>
 
-              <Switch>
-                <Route
-                  exact path= "/"
-                  render = {props => <Login {...props}  state = {this.state} editLogin = {this.editState} logInToDB = {this.logInToDB}/>}
-                />
-                <Route
-                  exact path= "/donation"
-                  render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
-                /> 
-                <Route
-                  exact path= "/signup"
-                  render = {props => <Signup {...props}  signUp = {this.signUp}  state = {this.state} />}
-                /> 
-              </Switch>
+                <Switch>
+                  <Route
+                    exact path= "/"
+                    render = {props => <Login {...props}  state = {this.state} editLogin = {this.editState} logInToDB = {this.logInToDB}/>}
+                  />
+                  <Route
+                    exact path= "/donation"
+                    render = {props => <Donation {...props}  onDonate = {this.editState} postToDB = {this.postToDB}  state = {this.state} />  }
+                  /> 
+                  <Route
+                    exact path= "/signup"
+                    render = {props => <Signup {...props}  signUp = {this.signUp}  state = {this.state} />}
+                  /> 
+                </Switch>
+
+              </div>
             </div>
           </Router>
           

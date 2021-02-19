@@ -15,9 +15,9 @@ const Donation = (props) => {
         return (
           <div>      
 
-            <h1>Individual Donation: ${userTotalDonation} </h1>
+            <h2>Individual Donation: ${userTotalDonation} </h2>
           
-           <div className = "form">
+            <div className = "form">
   
              <label>Donation Amount:</label>
              <input type="text" id="amount" onChange={props.onDonate}/>
@@ -27,7 +27,7 @@ const Donation = (props) => {
               
              <button onClick={props.postToDB}>Submit</button>
           
-          </div>
+            </div>
           
           </div>
   
